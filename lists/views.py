@@ -6,10 +6,12 @@ from lists.models import Item
 def home_page(request):
 	if request.method == 'POST':
 		Item.objects.create(text=request.POST['item_text'])
-		return redirect('/')
+		return redirect('/lists/the-only-list-in-the-world/')
+	#items = Item.objects.all()
+	return render(request, 'home.html')
 
-	#item = Item()
-	#item.text = request.POST.get('item_text', '')
-	#item.save()
-	items = Item.objects.all()
-	return render(request, 'home.html', {'items': items})
+def view_list(request, list_id):
+	#list_ = List.objects.get(id=list_id)
+	items = Item.objects.all()#filter(list=list_)
+	return render(request, 'list.html', {'items': items})
+
